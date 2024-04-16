@@ -2,8 +2,10 @@
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/screen/string.hpp>
 
-int main(int argc, char const *argv[])
-{
+using namespace ftxui;
+
+int main() {
+
     //crea los elementos de la interfaz de usuario 
     Element label = text("Hola, mundo!");
     Element container = hbox({label});
@@ -14,7 +16,7 @@ int main(int argc, char const *argv[])
         Dimension::Fit(container)
     );
    Render (screen,container);
-   screen.print();
+   screen.Print();
    
    return 0;
 }
