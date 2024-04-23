@@ -3,6 +3,10 @@
 #include <thread>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
+#include <ftxui/screen/string.hpp>
+#include <ftxui/screen/terminal.hpp>
+#include <fstream>
+#include <Dibujo.hpp>
 
 
 using namespace std;
@@ -10,10 +14,21 @@ using namespace ftxui;
 
 int main(int argc, char const *argv[])
 {
-    Element lienzo = hbox({
-        spinner(21,4) | bold
-    });
+    Dibujo dtanque("./assets/images/canon.txt");
+    Dibujo dAlien("./assets/images/alien.txt");
+    Dibujo dBloque("./assets/images/canon.txt");
 
+
+    int fotograma = 0;
+    while(true)
+    { 
+        fotograma++;
+        Element personaje=spinner(21,fotograma)| bold | color(color::blue1)|bgcolor(color::yellow1));
+        Element tanque=dtanque.GetElement() | bold | color(color(color::green) | bgcolor(color::blue));
+        Element lienzo=hbox({personaje , tanque, dAlien.GetElement});
+
+    
+   
     Screen pantalla = Screen::Create(
         Dimension::Full(),
         Dimension::Fit(lienzo)
@@ -21,9 +36,9 @@ int main(int argc, char const *argv[])
 
         Render(pantalla,lienzo);
         pantalla.Print();
-        pantalla.ResetPosition();
+        cout<<pantalla.ResetPosition();
         this_thread::sleep_for(0.1s);
-        
+        }
 
 
 
