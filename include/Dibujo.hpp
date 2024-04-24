@@ -1,5 +1,5 @@
 #include <fstream>
-#include<ftxui/dom/elements.hpp>
+#include <ftxui/dom/elements.hpp>
 using namespace std;
 using namespace ftxui;
 
@@ -25,7 +25,6 @@ public:
     Element GetElement(){
         return this->contenido;
     }
-    ~Dibujo(){}
-
+    ~Dibujo() {}
 };
 
