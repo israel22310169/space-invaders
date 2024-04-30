@@ -11,7 +11,7 @@ run : bin/space
 	./bin/space
 
 runTest : bin/test
-			./bin/test
+	./bin/test
 
 runVentana : bin/ventana
 	./bin/ventana 
