@@ -2,10 +2,7 @@
 #include <fstream>
 #include <list>
 #include <Dibujo.hpp>
-#include <string>
-
 using namespace std;
-using namespace ftxui;
 
 class Archivo
 {
@@ -22,7 +19,6 @@ public:
             getline(archivo, linea);
             contenido.push_back(linea);
         }
-        
         archivo.close();
     }
     Dibujo CrearDibujo(){
@@ -31,4 +27,3 @@ public:
     }
     ~Archivo() {}
 };
-

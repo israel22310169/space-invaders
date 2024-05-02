@@ -1,63 +1,78 @@
+#include <fstream>
+#include <ftxui/dom/elements.hpp>
 #pragma once
 #include <string>
-#include <ftxui/screen/screen.hpp>
 #include <list>
+#include <ftxui/screen/screen.hpp>
+using namespace std;
+using namespace ftxui;
 
 class Dibujo
 {
 private:
+    fstream archivo;
+    Element contenido;
     int posicionX;
     int posicionY;
     list<string> contenido;
-
 public:
-    Dibujo()
+    Dibujo(string path)
     {
+        archivo.open(path);
+        Elements lineas;
+        while (!archivo.eof())
+    Dibujo() {
         this->posicionX = 0;
         this->posicionY = 0;
     }
-    Dibujo(int posicionX, int posicionY)
-    {
+    Dibujo(int posicionX, int posicionY) {
+        this->posicionX = posicionX;
+        this->posicionY = posicionY;
+    }
+    Dibujo(list<string> contenido,int posicionX, int posicionY) {
         this->contenido = contenido;
         this->posicionX = posicionX;
         this->posicionY = posicionY;
     }
-    Dibujo(list<string> contenido, int posicionX, int posicionY)
-    {
-        this->palabra
-         = palabra;
-        this->posicionX = posicionX;
-        this->posicionY = posicionY;
-    }
-    
-    void Dibujar(ftxui::Screen &Pantalla)
-        {
-        int posicionPalabraX = 0;
+
+    void Dibujar(ftxui::Screen &Pantalla){
+
         int posicionPalabraY = 0;
-
-        for (auto &&letra : linea)
+        for (auto &&linea : contenido)
         {
-
+            string linea;
+            getline(archivo, linea);
+            lineas.emplace_back(text(linea));
+            int posicionPalabraX = 0;
+            for (auto &&letra : linea)
             {
-                int posicionFinalX = 
+                int posicionFinalX =
                     this->posicionX + posicionPalabraX;
-                int posicionFinalY = 
+                int posicionFinalY =
                     this->posicionY + posicionPalabraY;
 
                 Pantalla.PixelAt(
-                        posicionFinalX,
-                        posicionFinalY)
+                            posicionFinalX,
+                            posicionFinalY)
                     .character = letra;
                 posicionPalabraX++;
             }
-        posicionPalabraY++;
+            posicionPalabraY++;
         }
+        this->contenido = vbox(lineas);
+        archivo.close();
+    }
+    Element GetElement(){
+        return this->contenido;
     void DesplazarX(int distancia){
-        posicionX +=distancia;
+        posicionX += distancia;
     }
     void DesplazarY(int distancia){
-        posicionY +=distancia;
+        posicionY += distancia;
+    }
+    void EstablecerPosicion(int x, int y){
+        this->posicionX = x;
+        this->posicionY = y;
     }
     ~Dibujo() {}
-
 };
